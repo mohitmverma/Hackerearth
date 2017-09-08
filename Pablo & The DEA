@@ -1,0 +1,46 @@
+#include <iostream>
+#define ll long long int
+using namespace std;
+ll code(ll n)
+{  ll m=n;
+    ll sum=0;
+    while(n>0)
+    {  int r=n%10;
+        sum=sum+r;
+        n=n/10;
+    }
+    return m-sum;
+}
+
+int main()
+{
+    int t;
+    ll m,n;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n>>m;
+        ll l=0,r=n,p,mid;
+        while(r-l>1)
+        {
+            mid=(l+r)/2;
+            
+            p=code(mid);
+            if(p>=m)
+            {
+                r=mid;
+            }
+            else
+             l=mid+1;
+        }
+        //cout<<l<<" "<<r<<endl;
+        if(m<=code(l))
+         cout<<n-l+1<<endl;
+         else if(m<=code(r))
+          cout<<n-r+1<<endl;
+          else
+            cout<<"0"<<endl;
+        
+    }
+    return 0;
+}
