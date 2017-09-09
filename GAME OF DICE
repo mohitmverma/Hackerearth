@@ -1,0 +1,39 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std;
+double dp[101][11][300];
+double prob(int att,int life,int tar)
+{
+    if(tar<=0) return 1;
+      else if(att==100||life==10) return 0;
+      else if(int(dp[att][life][tar])>=0) return dp[att][life][tar];
+         else
+          return dp[att][life][tar]=(prob(att+1,life,tar-1)+ prob(att+1,life,tar-2)+prob(att+1,life,tar-3)+ prob(att+1,life,tar-4)+prob(att,life,tar-5)+ prob(att+1,life+1,tar))/6.0;
+                
+        
+}
+int main()
+{
+    int t;
+    cin>>t;
+    double res;
+    int att,life,cur_score,tar_score,tar;
+    while(t--)
+    {   memset(dp,-1.0,sizeof(dp));
+        cin>>att>>life>>cur_score>>tar_score;
+        tar=tar_score-cur_score;
+        res=prob(att,life,tar);
+        char c[1000];
+        sprintf(c,"%.12lf",res*100);           // to print  exactly to decimal points
+        int i;
+        for(i=0;i<5;i++)
+        { if(c[i]=='.')
+             break;
+            cout<<c[i];
+        }
+        cout<<c[i]<<c[i+1]<<c[i+2]<<endl;
+      //  cout<<endl;
+    }
+    return 0;
+}
